@@ -5,5 +5,59 @@
   <%= @company.name %>
 </p>
 
+<h1> Compañia : <%= @company.name %></h1>
+
+<h2> Empleados </h2>
+<ul>
+
+  <% @company.employees.each do |employee|%>
+  <li>
+    <%= employee.name %>
+    <%= employee.first_name %>
+    <%= employee.last_name %>
+    <%= employee.email %>
+    <%= employee.area %>
+    <%= link_to "x", company_employee_path(@company, employee), method: :delete %>
+  </li>
+ <% end %>
+</ul>
+
+<%= form_with(model: [ @company, @employee ], local:true) do |form| %>
+<%= form.hidden_field :company_id, value: @company.id %>
+
+  <div class="field">
+     <%= form.label :first_name, "Nombre del Empleado" %>
+     <%= form.text_field :first_name, id: :employee_first_name %>
+     <%= form.label :last_name, "Apellido del Empleado" %>
+     <%= form.text_field :last_name, id: :employee_last_name %>
+     <%= form.label :email, "Email del Empleado" %>
+     <%= form.text_field :email, id: :employee_email %>
+     <%= form.label :area, "Area del Empleado" %>
+     <%= form.select :area, id: :employee_area %>
+
+  </div>
+
+  <div class="actions">
+      <%= form.submit "Ingresar Producto" %>
+    </div>
+
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <%= link_to 'Edit', edit_company_path(@company) %> |
 <%= link_to 'Back', companies_path %>
